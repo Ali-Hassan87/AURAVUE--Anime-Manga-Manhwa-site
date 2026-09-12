@@ -1,0 +1,1 @@
+import DetailPage from '../../../components/DetailPage'; export default async function Page({params}){const {id}=await params;return <DetailPage type="anime" id={id}/>}

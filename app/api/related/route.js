@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';const K=process.env.KITSU_API_URL||'https://kitsu.io/api/edge';
+export async function GET(req){const {searchParams}=new URL(req.url),q=String(searchParams.get('q')||'').trim();if(!q)return NextResponse.json({data:[]});try{const p=new URLSearchParams({'filter[text]':q,'page[limit]':'8'}),r=await fetch(`${K}/manga?${p}`,{next:{revalidate:180}});if(!r.ok)throw 0;return NextResponse.json(await r.json())}catch{return NextResponse.json({data:[]})}}

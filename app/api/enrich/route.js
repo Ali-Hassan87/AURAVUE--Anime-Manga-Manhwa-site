@@ -1,0 +1,4 @@
+import {NextResponse} from 'next/server';
+const J='https://api.jikan.moe/v4';
+export async function GET(req){const {searchParams}=new URL(req.url),title=String(searchParams.get('title')||'').trim(),type=searchParams.get('type')||'anime';if(!title||type!=='anime')return NextResponse.json({});
+ try{const r=await fetch(`${J}/anime?q=${encodeURIComponent(title)}&limit=1`,{next:{revalidate:86400}});if(!r.ok)throw 0;const j=await r.json(),a=j.data?.[0];if(!a)return NextResponse.json({});return NextResponse.json({trailer:a.trailer?.embed_url||a.trailer?.url||null,videoId:a.trailer?.youtube_id||null,pictures:(a.images?Object.values(a.images).map(x=>x.large_image_url||x.image_url).filter(Boolean):[]).slice(0,8),genres:a.genres?.map(x=>x.name)||[],malUrl:a.url||null,episodes:a.episodes||null})}catch{return NextResponse.json({})}}

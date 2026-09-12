@@ -1,0 +1,1 @@
+export default function Mark(){return <span className="mark" aria-hidden="true"><svg viewBox="0 0 52 52"><path d="M8 39 21 9l7 19 7-19 9 30h-8l-5-17-7 17-7-17-5 17Z"/><circle cx="40" cy="12" r="4"/></svg></span>}
